@@ -1,11 +1,11 @@
 import axios from 'axios'
 import dynamic from 'next/dynamic';
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 const Head = dynamic(() => import('next/head'))
 const Game = dynamic(() => import('../components/game/game'))
 
 export default function Home({games, genres, connected}) {
+  console.log(games)
   const [page, setPage] = useState(0)
   const [displayedGames, setDisplay] = useState(games)
   const maxPage = Math.ceil(games.length / 15)
@@ -72,9 +72,8 @@ export default function Home({games, genres, connected}) {
           <button 
           className="bg-secondary text-primary border-4 shadow-md border-white py-1 px-4 rounded-xl hover:bg-primary 
           hover:text-white" 
-          onClick={prev}>Previous
+          onClick={prev}>Back
           </button>
-          <p className="absolute text-red bottom-5 left-50">{page}/{maxPage}</p>
           </>
           ) 
           : null}

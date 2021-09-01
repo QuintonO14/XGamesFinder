@@ -8,7 +8,7 @@ const Game = ({game}) => {
           max-h-screen rounded-sm bg-gray-700 text-center">
             <h1 className="break-normal text-center pt-2 h-14 border-b-2 border-black bg-primary text-white
             flex items-center justify-center py-2">
-              {game.name.length <= 50 ? game.name : game.name.slice(0,47) + '...'}
+              {game.name.length <= 40 ? game.name : game.name.slice(0,37) + '...'}
             </h1>
             <img className="rounded-md w-1/2 mx-auto h-40" src={game.cover ? `https://${game.cover.url.replace('t_thumb', 't_cover_big').substring(2)}` : '/noimage.jpg'}
             alt="game_cover"  /> 
