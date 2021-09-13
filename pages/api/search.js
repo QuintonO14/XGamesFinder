@@ -2,9 +2,10 @@ import axios from 'axios'
 
 export default async function handler(req, res) {
        if(req.method === 'POST') {
-        const name = req.body.name
+        const title = req.body.title
+        console.log(title)
         const token = req.body.token
-        const genres = await axios({
+        const game = await axios({
             url: 'https://api.igdb.com/v4/games/', 
             method: 'POST', 
             headers : {
@@ -12,14 +13,15 @@ export default async function handler(req, res) {
               'Client-ID': process.env.TWITCH_CLIENT_ID,
               'Authorization' : `Bearer ${token}`,
             },
-            data: `fields cover.*, genres.*, cover.cover_big, genres.*, name, platforms.*, screenshots.*, slug;  
-            limit 500;
-            where genres.name = "${name}" & platforms = (49);` 
+            data: `fields cover.*, genres.*, cover.cover_big, genres.*, name, platforms.*, screenshots.*, slug;
+            limit: 100;
+            search "${title}";
+            where platforms = (49);`
           })
-          if(genres) {
-              res.json(genres.data)
+          if(game) {
+              res.json(game.data)
           } else {
-              console.error(`Can't reach genres`)
+              console.log('Not Working')
           }
        }
 }

@@ -5,8 +5,9 @@ const Head = dynamic(() => import('next/head'))
 const Game = dynamic(() => import('../components/game/game'))
 
 export default function Home({games, genres, connected}) {
-  console.log(games)
   const [page, setPage] = useState(0)
+  const [title, setTitle] = useState(null)
+  const [searched, setSearched] = useState(null)
   const [displayedGames, setDisplay] = useState(games)
   const maxPage = Math.ceil(games.length / 15)
 
@@ -25,9 +26,26 @@ export default function Home({games, genres, connected}) {
       method: 'POST',
       data: body
     }).then((res) => {
+      document.getElementById("search").reset()
       setDisplay(res.data)
       setPage(0)
     })
+  }
+
+  const searchGame = async(e) => {
+    e.preventDefault()
+    const body = {
+      token: connected.access_token,
+      title: title.replace(/[^a-zA-Z ]/g, "")
+    }
+    await axios('/api/search', {
+      method: 'POST',
+      data: body
+    }).then((res) => {
+      setDisplay(res.data)
+      setSearched(title)
+      setPage(0)
+    }) 
   }
 
   const prev = () => {
@@ -45,10 +63,18 @@ export default function Home({games, genres, connected}) {
         contents before jumping in to play them" />
         <link rel="icon" type="image/png" sizes="16x16" href="/xbox.ico" />
        </Head> 
-      <div className="w-full text-center">
+      <div className="w-11/12 md:w-1/2 mx-auto border border-white flex flex-col items-center text-center">
+      <form id="search" onSubmit={searchGame} className="w-full">
+        <input 
+        type="search"
+        placeholder="Search for a game..."
+        className="w-full text-center p-1 focus:outline-none text-lg"
+        minLength={3}
+        onChange={(e) => setTitle(e.target.value)} /> 
+      </form>
       <select 
-      className="w-3/4 md:w-1/4 text-sm bg-primary scrollbar scrollbar-track-white scrollbar-thumb-secondary text-white
-      scrollbar-thumb-rounded scrollbar-track-rounded p-2" 
+      className="w-full text-md text-center bg-primary scrollbar scrollbar-track-white scrollbar-thumb-secondary text-white
+      scrollbar-thumb-rounded scrollbar-track-rounded p-2 focus:outline-none" 
       onChange={(e) => getGenre(e.target.value)}
       defaultValue="DEFAULT"
       >
@@ -77,12 +103,12 @@ export default function Home({games, genres, connected}) {
           </>
           ) 
           : null}
-         
-          {page !== maxPage ? <button 
+          {page !== maxPage && displayedGames.length ? <button 
           className="bg-secondary text-primary border-4 shadow-md border-white py-1 px-4 rounded-xl hover:bg-primary 
           hover:text-white" 
           onClick={next}>Next</button> 
           : null}
+          {!displayedGames.length && <p className="bg-primary text-white p-2 rounded-lg text-lg">No results for {`'${searched}'`}</p>}
       </div>
     </>
   )
@@ -134,6 +160,7 @@ export async function getServerSideProps () {
     }).catch((err) => {
       return err
     })
+
 
     return {
       props: {
