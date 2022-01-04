@@ -3,7 +3,6 @@ import axios from 'axios'
 export default async function handler(req, res) {
        if(req.method === 'POST') {
         const title = req.body.title
-        console.log(title)
         const token = req.body.token
         const game = await axios({
             url: 'https://api.igdb.com/v4/games/', 

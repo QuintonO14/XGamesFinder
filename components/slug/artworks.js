@@ -4,6 +4,8 @@ import 'react-image-lightbox/style.css';
 import { motion } from "framer-motion";
 
 const Artworks = ({title, works}) => {
+  console.log(title)
+  console.log(works)
     const [gamesArt, setArt] = useState(10)
     const [isOpen, setOpen] = useState(false)
     const [photoIndex, setIndex] = useState(0)
@@ -29,9 +31,7 @@ const Artworks = ({title, works}) => {
     
     return (
     <>
-        <div className="block w-3/4 md:w-1/2 items-center text-center my-2">
-        <img className="rounded-md my-2 w-full lg:w-1/2 mx-auto border-8 border-primary" src={title.cover ? `https://${title.cover.url.replace('t_thumb', 't_cover_big').substring(2)}` : '/noimage.jpg'}
-              alt="game_cover"  />  
+        <div className="block w-3/4 md:w-full items-center text-center my-2"> 
         {works.slice(0, gamesArt).map((image, i) => {
             return  <motion.img
              key={image.id} 
@@ -62,8 +62,9 @@ const Artworks = ({title, works}) => {
         </div>
         {works.length > 9 && (
           <button 
-          className="bg-secondary m-2 text-primary hover:bg-primary hover:text-white border border-white 
-          rounded-lg p-2 md:p-1"
+          className="bg-secondary m-2 text-xwhite hover:bg-tertiary rounded-lg p-2 
+          md:p-1 border-2 border-xwhite hover:border-primary hover:text-primary
+          md:hover:border-secondary md:hover:text-secondary"
           onClick={showMore}>{gamesArt === 10 ? 'See More' : 'See Less'}
           </button>
         )}

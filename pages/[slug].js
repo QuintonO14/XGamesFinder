@@ -18,6 +18,7 @@ const Slug = ({title}) => {
     const art = title[0].artworks
     const works = art ? art.concat(image) : image
     const router = useRouter()
+    console.log(title)
 
 
     const toggleVisible = () => {
@@ -38,7 +39,7 @@ const Slug = ({title}) => {
       window.addEventListener('scroll', toggleVisible)
     }
     return (
-        <div id="slug" className="flex relative flex-col text-sm md:text-md items-center min-h-screen h-auto bg-secondary text-primary">
+        <div id="slug" className="flex relative flex-col font-mono text-sm md:text-md items-center min-h-screen h-auto bg-secondary text-primary">
              <Head>
               <meta name="viewport" content="initial-scale=1.0, width=device-width" />
               <meta charSet="utf-8" />
@@ -47,25 +48,31 @@ const Slug = ({title}) => {
               videos, and other games like it`} />
               <link rel="icon" type="image/png" sizes="16x16" href="/xbox.ico" />
             </Head> 
-            <h1 className="w-full text-3xl font-bold text-center bg-primary text-white py-2">
+            <h1 className="w-full text-4xl font-bold text-center bg-primary text-xwhite py-2 border-b-2 border-primary">
               {title[0].name}
             </h1>
-            {title[0].involved_companies && (
-              <Developers title={title[0]} />
-            )}  
-            {works &&  (
-               <Artworks works={works} title={title[0]} />
-            )}
-            {title[0].genres && (
-                <Genres game={title[0]} />
-            )}
-             {title[0].summary && (
-                <Summary title={title[0]} /> 
-            )}
-            {title[0].game_modes || title[0].platforms ? (
-                <Modes title={title[0]} />
-            ) : null}
-             {title[0].storyline || title[0].collection ? (
+            <div className="md:flex md:m-4">
+              <div className="flex flex-col items-center md:border-2 border-tertiary text-center mt-1 w-full md:w-1/2 md:bg-primary md:rounded-sm">
+                {title[0].involved_companies && (
+                  <Developers title={title[0]} />
+                )}  
+                {works &&  (
+                  <Artworks works={works} title={title[0]} />
+                )}
+                {title[0].genres && (
+                    <Genres game={title[0]} />
+                )}
+              </div>
+              <div className="w-full md:w-1/2 place-self-center border-tertiary md:border-2 md:ml-4 md:rounded-sm bg-primary">
+                {title[0].summary && (
+                    <Summary title={title[0]} /> 
+                )}
+                {title[0].game_modes || title[0].platforms ? (
+                    <Modes title={title[0]} />
+                ) : null}
+              </div>
+            </div>
+             {title[0].storyline ? (
                 <Story title={title[0]} /> 
             ) : null}
             {title[0].videos && (
@@ -75,7 +82,7 @@ const Slug = ({title}) => {
                 <Similar title={title[0]} />
             )}
           <button
-          className="text-white w-12 h-12 rounded-md border border-primary text-primary bg-white fixed top-10 left-10"
+          className="text-xwhite w-12 h-12 rounded-md border border-primary text-primary bg-white fixed top-10 left-10"
           onClick={home} style={{display: visible ? 'block' : 'none'}}><img src="./home.svg" className="w-full h-full" />
           </button>
         </div>

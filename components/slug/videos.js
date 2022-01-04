@@ -5,6 +5,8 @@ import { Carousel } from 'react-responsive-carousel'
 const Videos = ({title}) => {
     return (
         <Carousel
+        autoPlay={true}
+        infiniteLoop={true}
         className="w-full lg:w-1/2 my-8"
         showStatus={false}
         swipeable={true}

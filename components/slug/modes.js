@@ -20,7 +20,7 @@ const Modes = ({title}) => {
     }, [index])
    
     return (
-        <div className="text-center bg-primary text-white w-full">
+        <div className="text-center bg-secondary md:bg-primary text-xwhite w-full py-4">
         <h2 className="text-xl font-bold">Modes:</h2>
         {mode ? (
         <p className="uppercase">{mode.name}</p>
@@ -51,6 +51,7 @@ const Modes = ({title}) => {
             </div>
         </div>
         ) : null }
+        <strong className="m-4 text-xl">{title.total_rating ? `Rating:${Math.round(title.total_rating)}` : 'Not Rated'}</strong>
         </div>
     )
 }

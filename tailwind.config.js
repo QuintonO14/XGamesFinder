@@ -5,7 +5,9 @@ module.exports = {
     extend: {
       colors: {
       'primary': '#107C10',
-      'secondary': '#3A3A3A'
+      'secondary': '#3A3A3A',
+      'tertiary' : '#c2c2c2',
+      'xwhite' : '#f1f1f1'
     },
     screens: {
       'tiny' : '415px',

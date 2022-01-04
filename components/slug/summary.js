@@ -6,7 +6,7 @@ const Summary = ({title}) => {
             {`Part of the ${title.collection.name} collection`}
         </h3>
         )}
-        <p className="text-left text-white bg-primary p-3">{title.summary}</p>
+        <p className="text-left text-white bg-primary p-3 text-lg">{title.summary}</p>
         </>
     )
 }

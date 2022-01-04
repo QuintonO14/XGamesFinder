@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useState } from 'react'
 const Head = dynamic(() => import('next/head'))
@@ -52,6 +53,29 @@ export default function Home({games, genres, connected}) {
     setPage(page - 1)
   }
 
+  const container = {
+    hidden: { opacity: 0},
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const item = {
+    hidden: { 
+      opacity: 0,
+      scale: 0,
+      rotate: 45
+    },
+    show: { 
+      opacity: 1,
+      scale: 1,
+      rotate: 0
+    }
+  }
+
   return (
     <>
      <Head>
@@ -63,36 +87,44 @@ export default function Home({games, genres, connected}) {
         contents before jumping in to play them" />
         <link rel="icon" type="image/png" sizes="16x16" href="/xbox.ico" />
        </Head> 
-      <div className="w-11/12 md:w-1/2 mx-auto border border-white flex flex-col items-center text-center">
-      <form id="search" onSubmit={searchGame} className="w-full">
-        <input 
-        type="search"
-        placeholder="Search for a game..."
-        className="w-full text-center p-1 focus:outline-none text-lg"
-        minLength={3}
-        onChange={(e) => setTitle(e.target.value)} /> 
-      </form>
-      <select 
-      className="w-full text-md text-center bg-primary scrollbar scrollbar-track-white scrollbar-thumb-secondary text-white
-      scrollbar-thumb-rounded scrollbar-track-rounded p-2 focus:outline-none" 
-      onChange={(e) => getGenre(e.target.value)}
-      defaultValue="DEFAULT"
-      >
-        <option value="DEFAULT" disabled>Choose a Genre</option>
-        {genres.filter((g => g.id !== 36)).map((genre) => {
-          return <option key={genre.id} value={genre.name}>{genre.name}</option>
-        })}
-      </select>
-      </div>
-      <div className="relative grid grid-flow-row z-10 sm:grid-cols-3 sm:grid-rows-5 lg:grid-cols-3 lg:grid-rows-5
-      xl:grid-cols-5 xl:grid-rows-3 w-2/3 md:w-11/12 mx-auto my-6 gap-2">
+      <motion.div
+      initial={{y: -1000}}
+      animate={{y: 0}}
+      transition={{ type: "spring", bounce: 0.10}}
+      className="w-11/12 md:w-1/2 mx-auto border border-white font-mono flex flex-col items-center text-center mt-4 rounded-lg">
+        <form id="search" onSubmit={searchGame} className="w-full">
+          <input 
+          type="search"
+          placeholder="Search for a game..."
+          className="w-full text-center p-1 focus:outline-none text-lg rounded-t-lg"
+          minLength={3}
+          onChange={(e) => setTitle(e.target.value)} /> 
+        </form>
+          <select 
+          className="w-full text-md text-center bg-primary scrollbar scrollbar-track-white scrollbar-thumb-secondary text-white
+          scrollbar-thumb-rounded scrollbar-track-rounded p-2 focus:outline-none rounded-b-lg" 
+          onChange={(e) => getGenre(e.target.value)}
+          defaultValue="DEFAULT"
+          >
+            <option value="DEFAULT" disabled>Choose a Genre</option>
+            {genres.filter((g => g.id !== 36)).map((genre) => {
+              return <option key={genre.id} value={genre.names}>{genre.name}</option>
+            })}
+          </select>
+      </motion.div>
+      <motion.div
+      variants={container} 
+      initial="hidden"
+      animate="show"
+      className="relative font-mono grid grid-flow-row z-10 sm:grid-cols-3 sm:grid-rows-auto lg:grid-cols-3 lg:grid-rows-auto
+      xl:grid-cols-5 xl:grid-rows-auto w-2/3 md:w-11/12 mx-auto my-6 gap-2">
         {displayedGames.slice(page * 15, 15*(page + 1)).map((game) => {
           return (
-            <Game key={game.id} game={game} connected={connected} /> 
+            <Game key={game.id} item={item} game={game} connected={connected} /> 
           )
         })}
-      </div>
-      <div className="flex justify-evenly w-11/12 mx-auto pb-6 relative">
+      </motion.div>
+      <div className="flex justify-evenly w-11/12 mx-auto pb-6 relative font-mono">
           {page != 0 ? (
           <>
           <button 
@@ -104,7 +136,7 @@ export default function Home({games, genres, connected}) {
           ) 
           : null}
           {page !== maxPage && displayedGames.length ? <button 
-          className="bg-secondary text-primary border-4 shadow-md border-white py-1 px-4 rounded-xl hover:bg-primary 
+          className="bg-secondary text-primary border-2 shadow-md border-white py-1 px-4 rounded-xl hover:bg-primary 
           hover:text-white" 
           onClick={next}>Next</button> 
           : null}
