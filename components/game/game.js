@@ -16,7 +16,9 @@ const Game = ({game, item}) => {
               <Image 
                 src={game.cover ? `https://${game.cover.url.replace('t_thumb', 't_cover_small_2x')}` : '/noimage.jpg'}
                 alt="cover"
-                layout='fill'
+                layout="fill"
+                placeholder="blur"
+                blurDataURL="/noimage.jpg"
                 />
               </div>
               <div className="flex flex-wrap justify-evenly">
