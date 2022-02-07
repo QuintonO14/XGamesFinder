@@ -45,7 +45,6 @@ const Slug = ({title}) => {
               <title>XGFinder | {title[0].name}</title>
               <meta name="description" content={`Information on the game ${title[0].name}, including screenshots,
               videos, and other games like it`} />
-              <link rel="icon" type="image/png" sizes="16x16" href="/xbox.ico" />
             </Head> 
             <h1 className="w-full text-4xl font-bold text-center bg-primary text-xwhite py-2 border-b-2 border-primary">
               {title[0].name}
