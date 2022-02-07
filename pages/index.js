@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useState } from 'react'
 const Head = dynamic(() => import('next/head'))
-const Game = dynamic(() => import('../components/game/game'), {ssr: true})
+const Game = dynamic(() => import('../components/game/game'))
 
 export default function Home({games, genres, connected}) {
   const [page, setPage] = useState(0)
