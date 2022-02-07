@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 const Link = dynamic(() => import('next/link'))
 
 const Similar = ({title}) => {
@@ -15,8 +16,13 @@ const Similar = ({title}) => {
                         <div className="cursor-pointer bg-tertiary border-2 border-secondary inline-block w-1/3 md:w-36
                         my-2 mx-1">
                             <h3 className="border-b-2 border-secondary bg-primary truncate text-lg px-2" key={same.id}>{same.name}</h3>
-                            <img className="rounded-sm mx-auto w-full h-40" src={`https://${same.cover.url.replace('t_thumb', 't_cover_big').substring(2)}`}
-                            alt="similar_cover" />
+                            <div className="rounded-sm mx-auto w-full h-40 overflow-hidden relative">
+                                <Image 
+                                src={`https://${same.cover.url.replace('t_thumb', 't_cover_small_2x').substring(2)}`}
+                                alt="similar_cover"
+                                layout='fill'
+                                />
+                            </div>
                         </div> 
                         </Link>
                         )

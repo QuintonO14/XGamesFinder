@@ -2,8 +2,6 @@ const Genre = ({game}) => {
   let genres = []
   if(game.genres) {
     genres = game.genres
-  } else {
-    genres = null
   }
 
  

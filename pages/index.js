@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useState } from 'react'
 const Head = dynamic(() => import('next/head'))
-const Game = dynamic(() => import('../components/game/game'))
+const Game = dynamic(() => import('../components/game/game'), {ssr: true})
 
 export default function Home({games, genres, connected}) {
   const [page, setPage] = useState(0)
@@ -85,7 +85,6 @@ export default function Home({games, genres, connected}) {
         <meta name="application-name" content="Xbox Games Finder" />
         <meta name="description" content="Find new Xbox games to play and get a good preview of their 
         contents before jumping in to play them" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/xbox.ico" />
        </Head> 
       <motion.div
       initial={{y: -1000}}
@@ -116,9 +115,10 @@ export default function Home({games, genres, connected}) {
       variants={container} 
       initial="hidden"
       animate="show"
-      className="relative font-mono grid grid-flow-row z-10 sm:grid-cols-3 sm:grid-rows-auto lg:grid-cols-3 lg:grid-rows-auto
+      className="relative font-mono grid grid-flow-row z-10 sm:grid-cols-2 md:grid-cols-3 sm:grid-rows-auto lg:grid-cols-4 lg:grid-rows-auto
       xl:grid-cols-5 xl:grid-rows-auto w-2/3 md:w-11/12 mx-auto my-6 gap-2">
-        {displayedGames.slice(page * 15, 15*(page + 1)).map((game) => {
+        {displayedGames.filter((g) => g.cover != null || undefined)
+        .slice(page * 15, 15*(page + 1)).map((game) => {
           return (
             <Game key={game.id} item={item} game={game} connected={connected} /> 
           )
@@ -169,8 +169,9 @@ export async function getServerSideProps () {
         'Authorization' : `Bearer ${connected.access_token}`,
       },
       data: `fields cover.*, genres.*, cover.cover_big, genres.*, name, platforms.*, screenshots.*, slug;  
-      limit 150; 
-      where platforms = (49);` 
+      limit 60;
+      sort rating desc; 
+      where platforms = (49) & genres != null;` 
     }).then((res) => {
       return res.data
     }).catch((err) => {
@@ -186,13 +187,12 @@ export async function getServerSideProps () {
         'Authorization' : `Bearer ${connected.access_token}`,
       },
       data: `fields id, name;
-      limit 100;` 
+      limit 60;` 
     }).then((res) => {
       return res.data
     }).catch((err) => {
       return err
     })
-
 
     return {
       props: {

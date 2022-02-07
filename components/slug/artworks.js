@@ -3,9 +3,7 @@ import Lightbox from "react-image-lightbox"
 import 'react-image-lightbox/style.css';
 import { motion } from "framer-motion";
 
-const Artworks = ({title, works}) => {
-  console.log(title)
-  console.log(works)
+const Artworks = ({works}) => {
     const [gamesArt, setArt] = useState(10)
     const [isOpen, setOpen] = useState(false)
     const [photoIndex, setIndex] = useState(0)
@@ -42,7 +40,7 @@ const Artworks = ({title, works}) => {
              className="rounded-md inline-block m-1" 
              onClick={() => setOpen(true)} 
              src={`https://${image.url.substring(2)}`}
-            alt="game_cover"  /> 
+             alt="game_cover"  /> 
         })}
         {isOpen && (
           <Lightbox

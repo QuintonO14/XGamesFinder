@@ -13,12 +13,11 @@ const Summary = dynamic(() => import('../components/slug/summary'))
 const Videos = dynamic(() => import('../components/slug/videos'))
 
 const Slug = ({title}) => {
-    const image = title[0].screenshots
     const [visible, setVisible] = useState(false)
+    const image = title[0].screenshots
     const art = title[0].artworks
     const works = art ? art.concat(image) : image
     const router = useRouter()
-    console.log(title)
 
 
     const toggleVisible = () => {
@@ -53,11 +52,9 @@ const Slug = ({title}) => {
             </h1>
             <div className="md:flex md:m-4">
               <div className="flex flex-col items-center md:border-2 border-tertiary text-center mt-1 w-full md:w-1/2 md:bg-primary md:rounded-sm">
-                {title[0].involved_companies && (
-                  <Developers title={title[0]} />
-                )}  
+                <Developers title={title[0]} />
                 {works &&  (
-                  <Artworks works={works} title={title[0]} />
+                  <Artworks works={works.filter((x) => x !== undefined)} title={title[0]} />
                 )}
                 {title[0].genres && (
                     <Genres game={title[0]} />
