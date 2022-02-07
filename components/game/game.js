@@ -14,11 +14,9 @@ const Game = ({game, item}) => {
             
               <div className="h-44 w-1/2 mx-auto rounded-md relative overflow-hidden">
               <Image 
-                src={game.cover ? `https://${game.cover.url.replace('t_thumb', 't_cover_small_2x')}` : '/noimage.jpg'}
+                src={game.cover ? `https://${game.cover.url.replace('t_thumb', 't_cover_big')}` : '/noimage.jpg'}
                 alt="cover"
                 layout="fill"
-                placeholder="blur"
-                blurDataURL="/noimage.jpg"
                 />
               </div>
               <div className="flex flex-wrap justify-evenly">
