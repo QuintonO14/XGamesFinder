@@ -11,14 +11,11 @@ const Game = ({game, item}) => {
             p-2 truncate">
               {game.name}
             </h1>
-            
-              <div className="h-44 w-1/2 mx-auto rounded-md relative overflow-hidden">
-              <Image 
+              <img
                 src={game.cover ? `https://${game.cover.url.replace('t_thumb', 't_cover_big')}` : '/noimage.jpg'}
                 alt="cover"
-                layout="fill"
+                className="h-44 w-1/2 mx-auto rounded-md relative overflow-hidden"
                 />
-              </div>
               <div className="flex flex-wrap justify-evenly">
               {game.genres && game.genres.length === 1 ? 
               <p className="border border-primary m-1 p-1.5 rounded-lg text-xs bg-tertiary text-primary font-bold">{game.genres[0].name}</p>
