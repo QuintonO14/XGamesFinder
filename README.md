@@ -4,13 +4,10 @@ XGamesFinder is an application that lets users browse Xbox titles. With XGamesFi
 ## Demo
 
 #### Mobile
-![](https://media.giphy.com/media/JcinPSSsLxm3AGwC5S/giphy.gif)
-
-![](https://media.giphy.com/media/UgMt1KnwToaXgcSWd7/giphy.gif)
+![](https://media.giphy.com/media/YQuE0msIq4dBCrqIXY/giphy.gif)
 
 #### Desktop 
 
-![](https://media.giphy.com/media/btCU9p2wK9y9pe7KEy/giphy.gif)
+![](https://media.giphy.com/media/FlrX1xFC09AwXDVY1p/giphy.gif)
 
-![](https://media.giphy.com/media/x3GxwfEf4tdLivBuP6/giphy.gif)
 
