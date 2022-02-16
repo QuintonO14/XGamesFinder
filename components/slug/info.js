@@ -24,8 +24,6 @@ const Modes = ({title}) => {
         } 
     }, [index])
 
-
-    console.log(title)
     return (
         <motion.div 
         initial={{opacity: 0}}
