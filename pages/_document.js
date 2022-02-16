@@ -5,10 +5,10 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <link rel="icon" type="image/png" sizes="16x16" href="/xbox.ico" />
+                    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
                     <link rel="manifest" href="/manifest.json" />
                     <link rel="apple-touch-icon" href="/icon-192x192.png" />
-                    <meta name="theme-color" content="#fff" />
+                    <meta name="theme-color" content="#3A3A3A" />
                 </Head>
                 <body>
                     <Main />

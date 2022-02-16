@@ -41,6 +41,7 @@ const Artworks = ({works}) => {
              onClick={() => setOpen(true)} 
              src={`https://${image.url.substring(2)}`}
              alt="game_cover"  /> 
+             
         })}
         {isOpen && (
           <Lightbox

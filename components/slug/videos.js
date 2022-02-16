@@ -7,7 +7,7 @@ const Videos = ({title}) => {
         <Carousel
         autoPlay={true}
         infiniteLoop={true}
-        className="w-full lg:w-1/2 my-8"
+        className="w-11/12 my-8 lg:hidden"
         showStatus={false}
         swipeable={true}
         showThumbs={false}
@@ -15,7 +15,7 @@ const Videos = ({title}) => {
         {title.videos.map((vid) => {
             return (
                 <div key={vid.id}>
-                    <iframe className="h-80" src={`https://www.youtube.com/embed/${vid.video_id}`}></iframe>
+                    <iframe className="h-72" src={`https://www.youtube.com/embed/${vid.video_id}`}></iframe>
                 </div>
             )
         })}

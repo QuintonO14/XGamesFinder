@@ -1,21 +1,20 @@
 import axios from "axios";
 import dynamic from 'next/dynamic'
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRouter } from 'next/router'
 const Head = dynamic(() => import('next/head'))
 const Artworks = dynamic(() => import('../components/slug/artworks'))
 const Developers = dynamic(() => import('../components/slug/developers'))
 const Genres = dynamic(() => import('../components/slug/genre'))
-const Modes = dynamic(() => import('../components/slug/modes'))
+const Info = dynamic(() => import('../components/slug/info'))
 const Similar = dynamic(() => import('../components/slug/similar'))
-const Story = dynamic(() => import('../components/slug/story'))
-const Summary = dynamic(() => import('../components/slug/summary'))
 const Videos = dynamic(() => import('../components/slug/videos'))
 
 const Slug = ({title}) => {
     const [visible, setVisible] = useState(false)
-    const image = title[0].screenshots
-    const art = title[0].artworks
+    const image = title.screenshots
+    const art = title.artworks
     const works = art ? art.concat(image) : image
     const router = useRouter()
 
@@ -37,48 +36,43 @@ const Slug = ({title}) => {
     if(typeof window !== 'undefined') {
       window.addEventListener('scroll', toggleVisible)
     }
+
+    const variants = { 
+      initial: { height: 0},
+      animate: { height: 100, transition: { delayChildren: 0.5} }
+    }
     return (
-        <div id="slug" className="flex relative flex-col font-mono text-sm md:text-md items-center min-h-screen h-auto bg-secondary text-primary">
+        <div id="slug" className="flex relative flex-col font-mono text-sm lg:text-lg items-center min-h-screen h-auto bg-secondary text-primary">
              <Head>
               <meta name="viewport" content="initial-scale=1.0, width=device-width" />
               <meta charSet="utf-8" />
-              <title>XGFinder | {title[0].name}</title>
-              <meta name="description" content={`Information on the game ${title[0].name}, including screenshots,
+              <title>XGFinder | {title.name}</title>
+              <meta name="description" content={`Information on the game ${title.name}, including screenshots,
               videos, and other games like it`} />
             </Head> 
             <h1 className="w-full text-4xl font-bold text-center bg-primary text-xwhite py-2 border-b-2 border-primary">
-              {title[0].name}
+              {title.name}
             </h1>
-            <div className="md:flex md:m-4">
-              <div className="flex flex-col items-center md:border-2 border-tertiary text-center mt-1 w-full md:w-1/2 md:bg-primary md:rounded-sm">
-                <Developers title={title[0]} />
+            <div className="lg:flex lg:m-4">
+              <div className="flex flex-col items-center lg:border-2 border-tertiary text-center mt-1 w-full lg:w-1/3 lg:bg-primary lg:rounded-sm">
+                <Developers title={title} />
                 {works &&  (
-                  <Artworks works={works.filter((x) => x !== undefined)} title={title[0]} />
+                  <Artworks works={works.filter((x) => x !== undefined)} title={title} />
                 )}
-                {title[0].genres && (
-                    <Genres game={title[0]} />
+                {title.genres && (
+                    <Genres game={title} />
                 )}
               </div>
-              <div className="w-full md:w-1/2 place-self-center border-tertiary md:border-2 md:ml-4 md:rounded-sm bg-primary">
-                {title[0].summary && (
-                    <Summary title={title[0]} /> 
-                )}
-                {title[0].game_modes || title[0].platforms ? (
-                    <Modes title={title[0]} />
-                ) : null}
-              </div>
+              <Info title={title} />
             </div>
-             {title[0].storyline ? (
-                <Story title={title[0]} /> 
-            ) : null}
-            {title[0].videos && (
-                <Videos title={title[0]} /> 
+            {title.videos && (
+                <Videos title={title} /> 
             )}
-              {title[0].similar_games && (
-                <Similar title={title[0]} />
+            {title.similar_games && (
+                <Similar title={title} />
             )}
           <button
-          className="text-xwhite w-12 h-12 rounded-md border border-primary text-primary bg-white fixed top-10 left-10"
+          className="text-xwhite w-12 h-12 rounded-lg border border-primary text-primary bg-white fixed top-10 left-10"
           onClick={home} style={{display: visible ? 'block' : 'none'}}><img src="./home.svg" className="w-full h-full" />
           </button>
         </div>
@@ -115,7 +109,7 @@ export async function getServerSideProps (context) {
       similar_games.slug, similar_games.platforms.*, storyline, summary, total_rating, involved_companies.company.*, videos.*;
       where id = ${id};` 
     }).then((res) => {
-      return res.data
+      return res.data[0]
     }).catch((err) => {
       return err
     })
