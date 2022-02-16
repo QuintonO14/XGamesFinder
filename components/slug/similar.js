@@ -7,7 +7,7 @@ const Link = dynamic(() => import('next/link'))
 
 
 const Similar = ({title}) => {
-    const [ref, inView] = useInView({threshold: 0.4})
+    const [ref, inView] = useInView({threshold: 0.1})
     const controls = useAnimation()
     const games = useAnimation()
 
