@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 const Link = dynamic(() => import('next/link'))
 
 const Game = ({game, item}) => {

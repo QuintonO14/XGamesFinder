@@ -18,7 +18,7 @@ export default function Home({games, genres, connected}) {
       window.scroll({top: 0, behavior:'smooth'})
     }
   }
-  const getGenre = async (e) => {
+  const getGenre = async (e: string) => {
     const body = {
       name: e,
       token: connected.access_token
@@ -27,7 +27,8 @@ export default function Home({games, genres, connected}) {
       method: 'POST',
       data: body
     }).then((res) => {
-      document.getElementById("search").reset()
+      let search = document.getElementById("search") as HTMLFormElement
+      search.reset()
       setDisplay(res.data)
       setPage(0)
     })
@@ -120,7 +121,7 @@ export default function Home({games, genres, connected}) {
         {displayedGames.filter((g) => g.cover != null || undefined)
         .slice(page * 15, 15*(page + 1)).map((game) => {
           return (
-            <Game key={game.id} item={item} game={game} connected={connected} /> 
+            <Game key={game.id} item={item} game={game} /> 
           )
         })}
       </motion.div>

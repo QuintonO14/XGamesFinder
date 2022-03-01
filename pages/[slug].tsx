@@ -57,7 +57,7 @@ const Slug = ({title}) => {
               <div className="flex flex-col items-center lg:border-2 border-tertiary text-center mt-1 w-full lg:w-1/3 lg:bg-primary lg:rounded-sm">
                 <Developers title={title} />
                 {works &&  (
-                  <Artworks works={works.filter((x) => x !== undefined)} title={title} />
+                  <Artworks works={works.filter((x) => x !== undefined)} />
                 )}
                 {title.genres && (
                     <Genres game={title} />
